@@ -34,8 +34,8 @@ Simular un centro de control espacial básico con una interfaz intuitiva que per
 
 | Componente         | Tecnología                          |
 |--------------------|--------------------------------------|
-| Lenguaje           | Java 17                              |
-| Interfaz gráfica   | Eclipse RCP (SWT + JFace)            |
+| Lenguaje           | Java 21                              |
+| Interfaz gráfica   | Eclipse RCP                          |
 | Lógica del sistema | Clases Java modulares (MVC-like)     |
 | IDE utilizado      | Eclipse IDE for RCP Developers       |
 
