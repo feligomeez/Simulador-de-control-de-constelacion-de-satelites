@@ -26,7 +26,7 @@ public class View extends ViewPart {
 
         parent.setLayout(new GridLayout(2, false));
 
-        // Botón para simular tick
+        // Boton para simular tick
         Button simulateBtn = new Button(parent, SWT.PUSH);
         simulateBtn.setText("Simular Tick");
         simulateBtn.addListener(SWT.Selection, e -> {
@@ -38,16 +38,16 @@ public class View extends ViewPart {
         Composite commandPanel = new Composite(parent, SWT.NONE);
         commandPanel.setLayout(new GridLayout(3, false));
         commandPanel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
-
+        //Campo para id del satelite
         Text satelliteIdText = new Text(commandPanel, SWT.BORDER);
         satelliteIdText.setMessage("ID del satélite");
         satelliteIdText.setLayoutData(new GridData(200, SWT.DEFAULT));
-
+        //Campo para comandos en un desplegable
         Combo commandCombo = new Combo(commandPanel, SWT.DROP_DOWN | SWT.READ_ONLY);
         commandCombo.setItems(new String[] { "REBOOT", "SAFE_MODE", "SIMULATE_SIGNAL_LOSS" });
-        commandCombo.select(0); // valor por defecto
+        commandCombo.select(0);
         commandCombo.setLayoutData(new GridData(200, SWT.DEFAULT));
-        
+        //Boton enviar comando seleccionado
         Button sendCommandBtn = new Button(commandPanel, SWT.PUSH);
         sendCommandBtn.setText("Enviar Comando");
         sendCommandBtn.addListener(SWT.Selection, e -> {
@@ -57,33 +57,35 @@ public class View extends ViewPart {
             updateStatus();
         });
 
-        // TextArea para mostrar estado
+        // Texto para mostrar estado de los satelites
         statusText = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
         statusText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
         statusText.setEditable(false);
 
-        // Canvas para visualización de satélites
+        // Canvas para visualizacion de satelites
         canvas = new Canvas(parent, SWT.BORDER);
         canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
         canvas.addPaintListener(e -> drawSatellites(e.gc));
 
         updateStatus();
     }
-
+    
+    //Actualizar texto
     private void updateStatus() {
         String output = controller.getAllSatellites().stream()
             .map(Satellite::toString)
             .collect(Collectors.joining("\n\n"));
 
         statusText.setText(output);
-        canvas.redraw(); // redibuja el canvas
+        canvas.redraw(); 
     }
-
+    
+    //Mapa 2d para mostrar los satelites segun estdo y coordenadas
     private void drawSatellites(GC gc) {
         int width = canvas.getSize().x;
         int height = canvas.getSize().y;
 
-        // Fondo negro
+        
         gc.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
         gc.fillRectangle(0, 0, width, height);
 
